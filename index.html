@@ -1,0 +1,1989 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nike — Just Do It</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+
+<style>
+/* ===== CSS CUSTOM PROPERTIES ===== */
+:root {
+  --black: #111111;
+  --white: #FFFFFF;
+  --nike-red: #FA5400;
+  --gray-100: #F5F5F5;
+  --gray-200: #E5E5E5;
+  --gray-400: #A0A0A0;
+  --gray-600: #666666;
+  --gray-800: #333333;
+  --font-headline: 'Bebas Neue', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: 0.15s ease;
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+  --shadow-md: 0 8px 32px rgba(0,0,0,0.12);
+  --shadow-lg: 0 24px 64px rgba(0,0,0,0.18);
+  --border-radius: 4px;
+  --header-height: 60px;
+}
+
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--white);
+  color: var(--black);
+  overflow-x: hidden;
+  line-height: 1.5;
+}
+img { display: block; max-width: 100%; }
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+ul { list-style: none; }
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--gray-100); }
+::-webkit-scrollbar-thumb { background: var(--black); border-radius: 3px; }
+
+/* ===== ANNOUNCEMENT BAR ===== */
+.announcement-bar {
+  background: var(--black);
+  color: var(--white);
+  text-align: center;
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  position: relative;
+  z-index: 1001;
+}
+.announcement-bar span { color: var(--nike-red); font-weight: 700; }
+
+/* ===== HEADER ===== */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--white);
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.header.scrolled {
+  border-color: var(--gray-200);
+  box-shadow: var(--shadow-sm);
+}
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  height: var(--header-height);
+  max-width: 1440px;
+  margin: 0 auto;
+  gap: 16px;
+}
+.logo {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+.logo svg { width: 60px; height: 24px; fill: var(--black); transition: fill var(--transition-fast); }
+.logo:hover svg { fill: var(--nike-red); }
+
+.nav-desktop {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  flex: 1;
+  justify-content: center;
+}
+.nav-desktop a {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--black);
+  position: relative;
+  padding: 4px 0;
+  transition: color var(--transition-fast);
+}
+.nav-desktop a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--nike-red);
+  transition: width var(--transition);
+}
+.nav-desktop a:hover { color: var(--nike-red); }
+.nav-desktop a:hover::after { width: 100%; }
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.search-bar {
+  display: flex;
+  align-items: center;
+  background: var(--gray-100);
+  border-radius: 20px;
+  padding: 6px 14px;
+  gap: 8px;
+  transition: background var(--transition-fast);
+}
+.search-bar:hover { background: var(--gray-200); }
+.search-bar input {
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 13px;
+  width: 140px;
+  outline: none;
+  color: var(--black);
+}
+.search-bar input::placeholder { color: var(--gray-400); }
+.icon-btn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background var(--transition-fast);
+  position: relative;
+}
+.icon-btn:hover { background: var(--gray-100); }
+.icon-btn svg { width: 22px; height: 22px; stroke: var(--black); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.cart-count {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: var(--nike-red);
+  color: var(--white);
+  font-size: 10px;
+  font-weight: 700;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: 8px;
+  cursor: pointer;
+}
+.hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--black);
+  transition: all var(--transition);
+}
+.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+/* ===== MOBILE MENU ===== */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 300px;
+  height: 100vh;
+  background: var(--white);
+  z-index: 2000;
+  padding: 80px 32px 32px;
+  transition: left var(--transition);
+  box-shadow: var(--shadow-lg);
+  overflow-y: auto;
+}
+.mobile-menu.open { left: 0; }
+.mobile-menu-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mobile-menu-close svg { width: 24px; height: 24px; stroke: var(--black); fill: none; stroke-width: 2; stroke-linecap: round; }
+.mobile-menu nav { display: flex; flex-direction: column; gap: 4px; }
+.mobile-menu nav a {
+  font-size: 28px;
+  font-family: var(--font-headline);
+  letter-spacing: 0.02em;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--gray-200);
+  transition: color var(--transition-fast), padding-left var(--transition);
+}
+.mobile-menu nav a:hover { color: var(--nike-red); padding-left: 8px; }
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 1999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition);
+  backdrop-filter: blur(2px);
+}
+.overlay.show { opacity: 1; pointer-events: all; }
+
+/* ===== HERO ===== */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 600px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: var(--black);
+}
+.hero-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.75;
+  transition: transform 8s ease;
+  transform-origin: center;
+}
+.hero:hover .hero-bg img { transform: scale(1.04); }
+.hero-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 50%, transparent 100%);
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 0 48px 80px;
+  max-width: 900px;
+}
+.hero-eyebrow {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--nike-red);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.8s 0.3s forwards;
+}
+.hero-headline {
+  font-family: var(--font-headline);
+  font-size: clamp(72px, 12vw, 160px);
+  color: var(--white);
+  line-height: 0.92;
+  letter-spacing: -0.01em;
+  margin-bottom: 24px;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeUp 0.9s 0.5s forwards;
+}
+.hero-headline em {
+  font-style: normal;
+  color: var(--nike-red);
+  display: block;
+}
+.hero-sub {
+  font-size: 18px;
+  color: rgba(255,255,255,0.8);
+  font-weight: 300;
+  margin-bottom: 40px;
+  max-width: 480px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.8s 0.7s forwards;
+}
+.hero-ctas {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.8s 0.9s forwards;
+}
+.btn-primary {
+  background: var(--white);
+  color: var(--black);
+  padding: 16px 40px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 50px;
+  transition: background var(--transition), color var(--transition), transform var(--transition-fast);
+}
+.btn-primary:hover { background: var(--nike-red); color: var(--white); transform: translateY(-2px); }
+.btn-secondary {
+  background: transparent;
+  color: var(--white);
+  padding: 16px 40px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 50px;
+  border: 2px solid rgba(255,255,255,0.5);
+  transition: border-color var(--transition), background var(--transition), transform var(--transition-fast);
+}
+.btn-secondary:hover { border-color: var(--white); background: rgba(255,255,255,0.1); transform: translateY(-2px); }
+
+.hero-scroll {
+  position: absolute;
+  bottom: 32px;
+  right: 48px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255,255,255,0.6);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.hero-scroll-line {
+  width: 1px;
+  height: 48px;
+  background: rgba(255,255,255,0.4);
+  animation: scrollPulse 2s infinite;
+}
+@keyframes scrollPulse {
+  0%, 100% { transform: scaleY(1); opacity: 0.4; }
+  50% { transform: scaleY(0.6); opacity: 1; }
+}
+
+/* ===== SECTION COMMONS ===== */
+.section-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  gap: 16px;
+}
+.section-title {
+  font-family: var(--font-headline);
+  font-size: clamp(36px, 5vw, 64px);
+  line-height: 1;
+  letter-spacing: 0.01em;
+}
+.section-link {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--black);
+  border-bottom: 2px solid var(--black);
+  padding-bottom: 2px;
+  white-space: nowrap;
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+.section-link:hover { color: var(--nike-red); border-color: var(--nike-red); }
+
+/* ===== CATEGORIES ===== */
+.categories { padding: 80px 48px; max-width: 1440px; margin: 0 auto; }
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 280px);
+  gap: 16px;
+}
+.category-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  background: var(--black);
+}
+.category-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease, opacity 0.3s ease;
+  opacity: 0.85;
+}
+.category-card:hover img { transform: scale(1.08); opacity: 0.65; }
+.category-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%);
+  display: flex;
+  align-items: flex-end;
+  padding: 24px;
+}
+.category-card-label {
+  font-family: var(--font-headline);
+  font-size: 32px;
+  color: var(--white);
+  letter-spacing: 0.02em;
+  transition: color var(--transition-fast);
+}
+.category-card:hover .category-card-label { color: var(--nike-red); }
+.category-card-badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: var(--nike-red);
+  color: var(--white);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 4px 10px;
+  border-radius: 2px;
+  text-transform: uppercase;
+}
+
+/* ===== PRODUCTS ===== */
+.novidades { padding: 80px 48px; background: var(--gray-100); }
+.novidades .section-header { max-width: 1440px; margin: 0 auto 40px; }
+.carousel-wrapper { position: relative; max-width: 1440px; margin: 0 auto; }
+.carousel {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 16px;
+  scrollbar-width: none;
+}
+.carousel::-webkit-scrollbar { display: none; }
+.carousel-nav {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+.carousel-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background var(--transition-fast), color var(--transition-fast);
+  background: var(--white);
+}
+.carousel-btn:hover { background: var(--black); }
+.carousel-btn:hover svg { stroke: var(--white); }
+.carousel-btn svg { width: 18px; height: 18px; stroke: var(--black); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+.product-card {
+  flex: 0 0 280px;
+  scroll-snap-align: start;
+  background: var(--white);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  position: relative;
+  transition: box-shadow var(--transition), transform var(--transition);
+}
+.product-card:hover { box-shadow: var(--shadow-md); transform: translateY(-4px); }
+.product-img-wrap {
+  position: relative;
+  height: 240px;
+  overflow: hidden;
+  background: var(--gray-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.product-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.product-card:hover .product-img-wrap img { transform: scale(1.05); }
+.product-quick-add {
+  position: absolute;
+  bottom: -48px;
+  left: 0;
+  right: 0;
+  background: var(--black);
+  color: var(--white);
+  text-align: center;
+  padding: 14px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: bottom var(--transition);
+  cursor: pointer;
+}
+.product-card:hover .product-quick-add { bottom: 0; }
+.product-quick-add:hover { background: var(--nike-red); }
+.product-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: var(--nike-red);
+  color: var(--white);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.product-badge.sale { background: var(--black); }
+.product-wishlist {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  background: rgba(255,255,255,0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background var(--transition-fast), transform var(--transition-fast);
+}
+.product-wishlist:hover { background: var(--white); transform: scale(1.1); }
+.product-wishlist svg { width: 16px; height: 16px; stroke: var(--black); fill: none; stroke-width: 2; }
+.product-wishlist.liked svg { fill: var(--nike-red); stroke: var(--nike-red); }
+.product-info { padding: 16px; }
+.product-colors { display: flex; gap: 6px; margin-bottom: 10px; }
+.color-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color var(--transition-fast), transform var(--transition-fast);
+}
+.color-dot.active, .color-dot:hover { border-color: var(--black); transform: scale(1.1); }
+.product-name {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  letter-spacing: -0.01em;
+}
+.product-category {
+  font-size: 12px;
+  color: var(--gray-400);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 10px;
+}
+.product-price {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+}
+.price-current { font-size: 16px; font-weight: 700; }
+.price-original { font-size: 14px; color: var(--gray-400); text-decoration: line-through; }
+.price-discount { font-size: 13px; color: var(--nike-red); font-weight: 700; }
+
+/* ===== EDITORIAL BANNER ===== */
+.editorial-banner {
+  position: relative;
+  height: 600px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+.editorial-banner-bg {
+  position: absolute;
+  inset: 0;
+  background: var(--black);
+}
+.editorial-banner-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.5;
+}
+.editorial-banner-content {
+  position: relative;
+  z-index: 2;
+  padding: 0 48px;
+  max-width: 700px;
+}
+.editorial-timer {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+.timer-unit {
+  text-align: center;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: var(--border-radius);
+  padding: 12px 16px;
+  min-width: 72px;
+}
+.timer-value {
+  font-family: var(--font-headline);
+  font-size: 42px;
+  color: var(--white);
+  line-height: 1;
+  display: block;
+}
+.timer-label {
+  font-size: 10px;
+  color: rgba(255,255,255,0.6);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.editorial-headline {
+  font-family: var(--font-headline);
+  font-size: clamp(48px, 7vw, 96px);
+  color: var(--white);
+  line-height: 0.95;
+  margin-bottom: 20px;
+  letter-spacing: 0.01em;
+}
+.editorial-headline em { color: var(--nike-red); font-style: normal; }
+.editorial-sub { font-size: 16px; color: rgba(255,255,255,0.8); margin-bottom: 36px; max-width: 420px; }
+
+/* ===== MAIS VENDIDOS ===== */
+.mais-vendidos { padding: 80px 48px; max-width: 1440px; margin: 0 auto; }
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+.stars { display: flex; gap: 2px; margin-bottom: 4px; }
+.star { color: var(--gray-200); font-size: 12px; }
+.star.filled { color: #FFB800; }
+.reviews-count { font-size: 12px; color: var(--gray-400); }
+.rating-row { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+
+/* ===== BENEFICIOS ===== */
+.beneficios { padding: 80px 48px; background: var(--black); }
+.beneficios-inner { max-width: 1200px; margin: 0 auto; }
+.beneficios-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; margin-top: 0; }
+.beneficio-card { text-align: center; padding: 40px 24px; }
+.beneficio-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 20px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition), border-color var(--transition);
+}
+.beneficio-card:hover .beneficio-icon { background: rgba(250,84,0,0.15); border-color: var(--nike-red); }
+.beneficio-icon svg { width: 28px; height: 28px; stroke: var(--white); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.beneficio-title { font-family: var(--font-headline); font-size: 22px; color: var(--white); margin-bottom: 8px; }
+.beneficio-text { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.6; }
+
+/* ===== NIKE MEMBER ===== */
+.nike-member { padding: 100px 48px; overflow: hidden; position: relative; background: var(--gray-100); }
+.nike-member-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.member-headline { font-family: var(--font-headline); font-size: clamp(42px, 6vw, 80px); line-height: 0.95; margin-bottom: 24px; }
+.member-headline em { font-style: normal; color: var(--nike-red); }
+.member-sub { font-size: 16px; color: var(--gray-600); margin-bottom: 40px; line-height: 1.7; }
+.member-benefits { display: flex; flex-direction: column; gap: 16px; margin-bottom: 40px; }
+.member-benefit {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 15px;
+  font-weight: 500;
+}
+.member-benefit-icon {
+  width: 40px;
+  height: 40px;
+  background: var(--black);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.member-benefit-icon svg { width: 18px; height: 18px; stroke: var(--white); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.btn-black {
+  background: var(--black);
+  color: var(--white);
+  padding: 16px 40px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 50px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background var(--transition), transform var(--transition-fast);
+}
+.btn-black:hover { background: var(--nike-red); transform: translateY(-2px); }
+.member-visual {
+  position: relative;
+  height: 500px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.member-visual img { width: 100%; height: 100%; object-fit: cover; }
+.member-visual-tag {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  background: var(--black);
+  color: var(--white);
+  padding: 12px 20px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+.member-visual-tag span { color: var(--nike-red); }
+
+/* ===== GALERIA SOCIAL ===== */
+.galeria { padding: 80px 48px; }
+.galeria-inner { max-width: 1440px; margin: 0 auto; }
+.galeria-header { text-align: center; margin-bottom: 48px; }
+.galeria-hashtag {
+  font-family: var(--font-headline);
+  font-size: clamp(36px, 6vw, 72px);
+  color: var(--nike-red);
+  display: block;
+  margin-bottom: 8px;
+}
+.galeria-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(2, 200px);
+  gap: 8px;
+}
+.galeria-item {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--gray-200);
+}
+.galeria-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+.galeria-item:nth-child(4) { grid-column: span 2; }
+.galeria-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+.galeria-item:hover img { transform: scale(1.08); }
+.galeria-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(250,84,0,0.0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+}
+.galeria-item:hover .galeria-overlay { background: rgba(250,84,0,0.3); }
+.galeria-overlay svg { width: 32px; height: 32px; fill: var(--white); opacity: 0; transform: scale(0.8); transition: all 0.3s ease; }
+.galeria-item:hover .galeria-overlay svg { opacity: 1; transform: scale(1); }
+
+/* ===== NEWSLETTER ===== */
+.newsletter { padding: 80px 48px; background: var(--black); }
+.newsletter-inner {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+.newsletter-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.2em; color: var(--nike-red); text-transform: uppercase; margin-bottom: 16px; }
+.newsletter-title { font-family: var(--font-headline); font-size: clamp(36px, 5vw, 56px); color: var(--white); line-height: 1; margin-bottom: 12px; }
+.newsletter-sub { font-size: 15px; color: rgba(255,255,255,0.5); margin-bottom: 40px; line-height: 1.6; }
+.newsletter-sub strong { color: var(--white); }
+.newsletter-form { display: flex; gap: 0; max-width: 480px; margin: 0 auto 16px; }
+.newsletter-form input {
+  flex: 1;
+  padding: 16px 20px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-right: none;
+  color: var(--white);
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  border-radius: 50px 0 0 50px;
+  transition: border-color var(--transition-fast);
+}
+.newsletter-form input:focus { border-color: rgba(255,255,255,0.4); }
+.newsletter-form input::placeholder { color: rgba(255,255,255,0.3); }
+.newsletter-form button {
+  background: var(--nike-red);
+  color: var(--white);
+  padding: 16px 28px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 0 50px 50px 0;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+  white-space: nowrap;
+}
+.newsletter-form button:hover { background: #e04a00; }
+.newsletter-terms { font-size: 11px; color: rgba(255,255,255,0.3); }
+.newsletter-success { display: none; align-items: center; gap: 8px; color: var(--white); font-size: 15px; font-weight: 500; justify-content: center; margin-top: 8px; }
+.newsletter-success svg { width: 20px; height: 20px; stroke: #4CAF50; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ===== FOOTER ===== */
+footer {
+  background: var(--black);
+  color: rgba(255,255,255,0.6);
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.footer-main {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 64px 48px;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
+  gap: 48px;
+}
+.footer-brand .logo-footer svg { width: 72px; fill: var(--white); }
+.footer-tagline { font-size: 13px; margin-top: 16px; line-height: 1.6; max-width: 220px; }
+.footer-socials { display: flex; gap: 12px; margin-top: 24px; }
+.social-link {
+  width: 36px;
+  height: 36px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition-fast);
+  text-decoration: none;
+}
+.social-link:hover { background: var(--nike-red); }
+.social-link svg { width: 16px; height: 16px; fill: var(--white); }
+.footer-col-title { font-size: 14px; font-weight: 700; color: var(--white); margin-bottom: 20px; letter-spacing: 0.04em; }
+.footer-links { display: flex; flex-direction: column; gap: 10px; }
+.footer-links a { font-size: 13px; color: rgba(255,255,255,0.5); transition: color var(--transition-fast); }
+.footer-links a:hover { color: var(--white); }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 24px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1440px;
+  margin: 0 auto;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.footer-legal { display: flex; gap: 20px; flex-wrap: wrap; }
+.footer-legal a { font-size: 12px; color: rgba(255,255,255,0.35); transition: color var(--transition-fast); }
+.footer-legal a:hover { color: rgba(255,255,255,0.7); }
+.footer-copyright { font-size: 12px; color: rgba(255,255,255,0.25); }
+.footer-country { display: flex; align-items: center; gap: 6px; font-size: 12px; color: rgba(255,255,255,0.4); }
+
+/* ===== CART DRAWER ===== */
+.cart-drawer {
+  position: fixed;
+  top: 0;
+  right: -420px;
+  width: 420px;
+  max-width: 100vw;
+  height: 100vh;
+  background: var(--white);
+  z-index: 3000;
+  display: flex;
+  flex-direction: column;
+  transition: right var(--transition);
+  box-shadow: var(--shadow-lg);
+}
+.cart-drawer.open { right: 0; }
+.cart-header {
+  padding: 24px;
+  border-bottom: 1px solid var(--gray-200);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.cart-title { font-family: var(--font-headline); font-size: 28px; }
+.cart-close {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background var(--transition-fast);
+}
+.cart-close:hover { background: var(--gray-100); }
+.cart-close svg { width: 20px; height: 20px; stroke: var(--black); fill: none; stroke-width: 2; stroke-linecap: round; }
+.cart-items { flex: 1; overflow-y: auto; padding: 16px; }
+.cart-item {
+  display: flex;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--gray-100);
+}
+.cart-item-img {
+  width: 80px;
+  height: 80px;
+  background: var(--gray-100);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.cart-item-img img { width: 100%; height: 100%; object-fit: cover; }
+.cart-item-info { flex: 1; }
+.cart-item-name { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+.cart-item-size { font-size: 12px; color: var(--gray-400); margin-bottom: 8px; }
+.cart-item-price { font-size: 15px; font-weight: 700; color: var(--black); }
+.cart-item-remove { font-size: 11px; color: var(--gray-400); cursor: pointer; text-decoration: underline; margin-top: 4px; display: inline-block; }
+.cart-item-remove:hover { color: var(--nike-red); }
+.cart-footer {
+  padding: 24px;
+  border-top: 1px solid var(--gray-200);
+}
+.cart-subtotal {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  font-weight: 700;
+  font-size: 16px;
+}
+.cart-empty { text-align: center; padding: 60px 24px; color: var(--gray-400); }
+.cart-empty-icon { font-size: 48px; margin-bottom: 16px; }
+.cart-empty-text { font-size: 16px; font-weight: 600; margin-bottom: 8px; color: var(--black); }
+.cart-empty-sub { font-size: 14px; }
+.btn-checkout {
+  width: 100%;
+  background: var(--black);
+  color: var(--white);
+  padding: 18px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+.btn-checkout:hover { background: var(--nike-red); }
+
+/* ===== BACK TO TOP ===== */
+.back-to-top {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  width: 48px;
+  height: 48px;
+  background: var(--black);
+  color: var(--white);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 999;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity var(--transition), transform var(--transition), background var(--transition-fast);
+  box-shadow: var(--shadow-md);
+}
+.back-to-top.show { opacity: 1; transform: translateY(0); }
+.back-to-top:hover { background: var(--nike-red); }
+.back-to-top svg { width: 20px; height: 20px; stroke: var(--white); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ===== FADE IN ANIMATIONS ===== */
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-in {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+.fade-in-delay-1 { transition-delay: 0.1s; }
+.fade-in-delay-2 { transition-delay: 0.2s; }
+.fade-in-delay-3 { transition-delay: 0.3s; }
+.fade-in-delay-4 { transition-delay: 0.4s; }
+
+/* ===== TOAST ===== */
+.toast {
+  position: fixed;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--black);
+  color: var(--white);
+  padding: 14px 24px;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 600;
+  z-index: 9999;
+  opacity: 0;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  border-left: 4px solid var(--nike-red);
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1200px) {
+  .footer-main { grid-template-columns: 1fr 1fr 1fr; }
+  .footer-brand { grid-column: span 3; }
+  .products-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 1024px) {
+  .nav-desktop { display: none; }
+  .hamburger { display: flex; }
+  .search-bar { display: none; }
+  .categories-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto; }
+  .categories-grid .category-card { height: 220px; }
+  .galeria-grid { grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 180px); }
+  .galeria-item:nth-child(1) { grid-column: span 1; grid-row: span 1; }
+  .galeria-item:nth-child(4) { grid-column: span 1; }
+  .nike-member-inner { grid-template-columns: 1fr; }
+  .member-visual { height: 300px; order: -1; }
+  .beneficios-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  :root { --header-height: 56px; }
+  .categories, .novidades, .mais-vendidos, .galeria, .newsletter, .nike-member, .beneficios, .editorial-banner-content { padding-left: 20px; padding-right: 20px; }
+  .categories, .mais-vendidos { padding-top: 56px; padding-bottom: 56px; }
+  .hero-content { padding: 0 20px 60px; }
+  .hero-scroll { right: 20px; }
+  .categories-grid { gap: 8px; }
+  .products-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .footer-main { grid-template-columns: 1fr 1fr; padding: 40px 20px; gap: 32px; }
+  .footer-brand { grid-column: span 2; }
+  .footer-bottom { padding: 20px; }
+  .editorial-timer { gap: 8px; }
+  .timer-unit { min-width: 60px; padding: 10px 12px; }
+  .timer-value { font-size: 32px; }
+  .galeria-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(4, 150px); }
+  .newsletter-form { flex-direction: column; gap: 8px; }
+  .newsletter-form input { border-right: 1px solid rgba(255,255,255,0.15); border-radius: 50px; }
+  .newsletter-form button { border-radius: 50px; }
+  .beneficios-grid { grid-template-columns: repeat(2, 1fr); gap: 0; }
+  .back-to-top { bottom: 16px; right: 16px; }
+  .section-header { flex-direction: column; align-items: flex-start; }
+}
+
+@media (max-width: 480px) {
+  .products-grid { grid-template-columns: 1fr; }
+  .hero-headline { font-size: 56px; }
+  .hero-ctas { flex-direction: column; }
+  .btn-primary, .btn-secondary { text-align: center; }
+  .footer-main { grid-template-columns: 1fr; }
+  .footer-brand { grid-column: span 1; }
+  .categories-grid { grid-template-columns: 1fr 1fr; }
+  .galeria-grid { grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 120px); }
+  .galeria-item:nth-child(1) { grid-column: span 1; grid-row: span 1; }
+}
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="announcement-bar">
+  🚚 Frete Grátis em compras acima de <span>R$299</span> &nbsp;|&nbsp; Use o código <span>NIKE10</span> e ganhe 10% no primeiro pedido &nbsp;|&nbsp; Até 6x sem juros
+</div>
+
+<!-- HEADER -->
+<header class="header" id="header">
+  <div class="header-inner">
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <a href="#" class="logo" aria-label="Nike Home">
+      <svg viewBox="0 0 88 32" xmlns="http://www.w3.org/2000/svg">
+        <path d="M87.5 3.6c-.8 1-1.9 1.8-3.4 2.5C80.8 7.6 71.3 10 60 13.3 45.8 17.4 35.2 21.8 27.8 26.8c-4.8 3.2-7.5 6.3-8.1 9.3-.1.5-.1 1-.1 1.5 0 2.2.9 4.1 2.6 5.7 1 .9 2.2 1.6 3.6 2.2-3.3-.5-5.8-1.6-7.6-3.4C16.3 40 15.5 37.7 15.5 35c0-1 .1-2 .4-3.2.9-3.8 3.1-7.5 6.6-11 3.5-3.5 8.1-6.7 13.8-9.5 10.9-5.4 24.3-9.4 40.3-12C82.5-1.4 87.5 3.6 87.5 3.6z"/>
+        <path d="M0 44.8L33.1 0l8.2 0L8.2 44.8H0z"/>
+      </svg>
+    </a>
+    <nav class="nav-desktop">
+      <a href="#">Homem</a>
+      <a href="#">Mulher</a>
+      <a href="#">Infantil</a>
+      <a href="#" style="color: var(--nike-red)">Sale</a>
+      <a href="#">Esportes</a>
+    </nav>
+    <div class="header-actions">
+      <div class="search-bar">
+        <svg viewBox="0 0 24 24" width="16" height="16" stroke="var(--gray-400)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" placeholder="Buscar">
+      </div>
+      <button class="icon-btn" aria-label="Favoritos">
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </button>
+      <button class="icon-btn" id="cart-toggle" aria-label="Carrinho">
+        <svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span class="cart-count" id="cart-count">0</span>
+      </button>
+      <button class="icon-btn" aria-label="Conta">
+        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- MOBILE MENU -->
+<div class="overlay" id="overlay"></div>
+<div class="mobile-menu" id="mobile-menu">
+  <button class="mobile-menu-close" id="mobile-close">
+    <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <nav>
+    <a href="#">Homem</a>
+    <a href="#">Mulher</a>
+    <a href="#">Infantil</a>
+    <a href="#" style="color: var(--nike-red)">Sale</a>
+    <a href="#">Esportes</a>
+    <a href="#">Corrida</a>
+    <a href="#">Basquete</a>
+  </nav>
+</div>
+
+<main>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=1920&h=1080&fit=crop&q=85" alt="Nike Hero" loading="eager">
+  </div>
+  <div class="hero-gradient"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Nova Coleção 2025</p>
+    <h1 class="hero-headline">
+      FEITO<br>PARA
+      <em>VENCER</em>
+    </h1>
+    <p class="hero-sub">Performance que transcende limites. Inovação que redefine o possível. Seja você quem define o jogo.</p>
+    <div class="hero-ctas">
+      <a href="#novidades" class="btn-primary">COMPRAR AGORA</a>
+      <a href="#categorias" class="btn-secondary">EXPLORAR</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span class="hero-scroll-line"></span>
+    <span>SCROLL</span>
+  </div>
+</section>
+
+<!-- CATEGORIAS -->
+<section class="categories" id="categorias">
+  <div class="section-header fade-in">
+    <h2 class="section-title">CATEGORIAS</h2>
+    <a href="#" class="section-link">Ver Todas →</a>
+  </div>
+  <div class="categories-grid">
+    <div class="category-card fade-in fade-in-delay-1">
+      <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=400&fit=crop&q=80" alt="Corrida" loading="lazy">
+      <div class="category-card-overlay"><span class="category-card-label">CORRIDA</span></div>
+    </div>
+    <div class="category-card fade-in fade-in-delay-2">
+      <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&h=400&fit=crop&q=80" alt="Treino" loading="lazy">
+      <div class="category-card-overlay"><span class="category-card-label">TREINO</span></div>
+    </div>
+    <div class="category-card fade-in fade-in-delay-3">
+      <img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?w=600&h=400&fit=crop&q=80" alt="Basquete" loading="lazy">
+      <div class="category-card-overlay"><span class="category-card-label">BASQUETE</span></div>
+      <span class="category-card-badge">HOT</span>
+    </div>
+    <div class="category-card fade-in fade-in-delay-1">
+      <img src="https://images.unsplash.com/photo-1553778263-73a83bab9b0c?w=600&h=400&fit=crop&q=80" alt="Futebol" loading="lazy">
+      <div class="category-card-overlay"><span class="category-card-label">FUTEBOL</span></div>
+    </div>
+    <div class="category-card fade-in fade-in-delay-2">
+      <img src="https://images.unsplash.com/photo-1520975954732-35dd22299614?w=600&h=400&fit=crop&q=80" alt="Skateboarding" loading="lazy">
+      <div class="category-card-overlay"><span class="category-card-label">SKATE</span></div>
+      <span class="category-card-badge">NEW</span>
+    </div>
+    <div class="category-card fade-in fade-in-delay-3">
+      <img src="https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=600&h=400&fit=crop&q=80" alt="Lifestyle" loading="lazy">
+      <div class="category-card-overlay"><span class="category-card-label">LIFESTYLE</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- NOVIDADES -->
+<section class="novidades" id="novidades">
+  <div class="section-header fade-in">
+    <h2 class="section-title">NOVIDADES</h2>
+    <a href="#" class="section-link">Ver Todos →</a>
+  </div>
+  <div class="carousel-wrapper">
+    <div class="carousel" id="carousel">
+
+      <!-- Product 1 -->
+      <article class="product-card fade-in" data-price="899">
+        <div class="product-img-wrap" data-base-img="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&h=500&fit=crop&q=80">
+          <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&h=500&fit=crop&q=80" alt="Nike Air Max 270" loading="lazy">
+          <span class="product-badge">NOVO</span>
+          <div class="product-wishlist" onclick="toggleWishlist(this)">
+            <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </div>
+          <div class="product-quick-add" onclick="addToCart('Nike Air Max 270', 899)">+ Adicionar ao Carrinho</div>
+        </div>
+        <div class="product-info">
+          <div class="product-colors">
+            <div class="color-dot active" style="background:#111111" onclick="changeColor(this, '#111111', '')"></div>
+            <div class="color-dot" style="background:#FA5400" onclick="changeColor(this, '#FA5400', 'filter: hue-rotate(15deg) saturate(1.5)')"></div>
+            <div class="color-dot" style="background:#FFFFFF; border: 1px solid #ddd" onclick="changeColor(this, '#F5F5F5', 'filter: brightness(1.5)')"></div>
+            <div class="color-dot" style="background:#1a4fd8" onclick="changeColor(this, '#1a4fd8', 'filter: hue-rotate(210deg)')"></div>
+          </div>
+          <h3 class="product-name">Nike Air Max 270</h3>
+          <p class="product-category">Lifestyle · 4 cores</p>
+          <div class="product-price"><span class="price-current">R$899,00</span></div>
+        </div>
+      </article>
+
+      <!-- Product 2 -->
+      <article class="product-card fade-in fade-in-delay-1" data-price="749">
+        <div class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=600&h=500&fit=crop&q=80" alt="Nike React Infinity" loading="lazy">
+          <span class="product-badge sale">SALE</span>
+          <div class="product-wishlist" onclick="toggleWishlist(this)">
+            <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </div>
+          <div class="product-quick-add" onclick="addToCart('Nike React Infinity', 749)">+ Adicionar ao Carrinho</div>
+        </div>
+        <div class="product-info">
+          <div class="product-colors">
+            <div class="color-dot active" style="background:#e8e0d5"></div>
+            <div class="color-dot" style="background:#2d3748"></div>
+            <div class="color-dot" style="background:#c53030"></div>
+          </div>
+          <h3 class="product-name">Nike React Infinity Run</h3>
+          <p class="product-category">Corrida · 3 cores</p>
+          <div class="product-price">
+            <span class="price-current">R$749,00</span>
+            <span class="price-original">R$999,00</span>
+            <span class="price-discount">-25%</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Product 3 -->
+      <article class="product-card fade-in fade-in-delay-2" data-price="1199">
+        <div class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=600&h=500&fit=crop&q=80" alt="Nike Air Force 1" loading="lazy">
+          <span class="product-badge">ÍCONE</span>
+          <div class="product-wishlist" onclick="toggleWishlist(this)">
+            <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </div>
+          <div class="product-quick-add" onclick="addToCart('Nike Air Force 1', 1199)">+ Adicionar ao Carrinho</div>
+        </div>
+        <div class="product-info">
+          <div class="product-colors">
+            <div class="color-dot active" style="background:#ffffff; border:1px solid #ddd"></div>
+            <div class="color-dot" style="background:#111111"></div>
+            <div class="color-dot" style="background:#FA5400"></div>
+            <div class="color-dot" style="background:#8B4513"></div>
+          </div>
+          <h3 class="product-name">Nike Air Force 1 '07</h3>
+          <p class="product-category">Lifestyle · 4 cores</p>
+          <div class="product-price"><span class="price-current">R$1.199,00</span></div>
+        </div>
+      </article>
+
+      <!-- Product 4 -->
+      <article class="product-card fade-in fade-in-delay-3" data-price="649">
+        <div class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1539185441755-769473a23570?w=600&h=500&fit=crop&q=80" alt="Nike ZoomX" loading="lazy">
+          <div class="product-wishlist" onclick="toggleWishlist(this)">
+            <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </div>
+          <div class="product-quick-add" onclick="addToCart('Nike ZoomX Vaporfly', 649)">+ Adicionar ao Carrinho</div>
+        </div>
+        <div class="product-info">
+          <div class="product-colors">
+            <div class="color-dot active" style="background:#FA5400"></div>
+            <div class="color-dot" style="background:#333333"></div>
+            <div class="color-dot" style="background:#00b4d8"></div>
+          </div>
+          <h3 class="product-name">Nike ZoomX Vaporfly</h3>
+          <p class="product-category">Corrida · 3 cores</p>
+          <div class="product-price">
+            <span class="price-current">R$649,00</span>
+            <span class="price-original">R$899,00</span>
+            <span class="price-discount">-28%</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Product 5 -->
+      <article class="product-card fade-in fade-in-delay-1">
+        <div class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?w=600&h=500&fit=crop&q=80" alt="Nike Dunk Low" loading="lazy">
+          <span class="product-badge">EXCLUSIVO</span>
+          <div class="product-wishlist" onclick="toggleWishlist(this)">
+            <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </div>
+          <div class="product-quick-add" onclick="addToCart('Nike Dunk Low Retro', 999)">+ Adicionar ao Carrinho</div>
+        </div>
+        <div class="product-info">
+          <div class="product-colors">
+            <div class="color-dot active" style="background:#1a5276"></div>
+            <div class="color-dot" style="background:#f8f9fa; border:1px solid #ddd"></div>
+            <div class="color-dot" style="background:#6c5ce7"></div>
+          </div>
+          <h3 class="product-name">Nike Dunk Low Retro</h3>
+          <p class="product-category">Lifestyle · 3 cores</p>
+          <div class="product-price"><span class="price-current">R$999,00</span></div>
+        </div>
+      </article>
+
+      <!-- Product 6 -->
+      <article class="product-card fade-in fade-in-delay-2">
+        <div class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=600&h=500&fit=crop&q=80" alt="Nike Free Run" loading="lazy">
+          <div class="product-wishlist" onclick="toggleWishlist(this)">
+            <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </div>
+          <div class="product-quick-add" onclick="addToCart('Nike Free Run 5.0', 599)">+ Adicionar ao Carrinho</div>
+        </div>
+        <div class="product-info">
+          <div class="product-colors">
+            <div class="color-dot active" style="background:#2f855a"></div>
+            <div class="color-dot" style="background:#111111"></div>
+            <div class="color-dot" style="background:#e53e3e"></div>
+          </div>
+          <h3 class="product-name">Nike Free Run 5.0</h3>
+          <p class="product-category">Corrida · 3 cores</p>
+          <div class="product-price">
+            <span class="price-current">R$599,00</span>
+            <span class="price-original">R$799,00</span>
+            <span class="price-discount">-25%</span>
+          </div>
+        </div>
+      </article>
+
+    </div>
+    <div class="carousel-nav">
+      <button class="carousel-btn" id="prev" aria-label="Anterior">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button class="carousel-btn" id="next" aria-label="Próximo">
+        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- EDITORIAL BANNER -->
+<section class="editorial-banner">
+  <div class="editorial-banner-bg">
+    <img src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=1920&h=800&fit=crop&q=85" alt="Editorial" loading="lazy">
+  </div>
+  <div style="position:absolute;inset:0;background:linear-gradient(to right, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 70%, transparent 100%);"></div>
+  <div class="editorial-banner-content">
+    <div class="editorial-timer fade-in">
+      <div class="timer-unit"><span class="timer-value" id="hours">00</span><span class="timer-label">Horas</span></div>
+      <div class="timer-unit"><span class="timer-value" id="minutes">00</span><span class="timer-label">Min</span></div>
+      <div class="timer-unit"><span class="timer-value" id="seconds">00</span><span class="timer-label">Seg</span></div>
+    </div>
+    <h2 class="editorial-headline fade-in fade-in-delay-1">OFERTA<br><em>RELÂMPAGO</em><br>ATÉ 50% OFF</h2>
+    <p class="editorial-sub fade-in fade-in-delay-2">Coleção especial com os melhores modelos da temporada a preços imperdíveis. Não perca — estoque limitado.</p>
+    <a href="#" class="btn-primary fade-in fade-in-delay-3">VER COLEÇÃO ESPECIAL</a>
+  </div>
+</section>
+
+<!-- MAIS VENDIDOS -->
+<section class="mais-vendidos fade-in">
+  <div class="section-header">
+    <h2 class="section-title">EM ALTA</h2>
+    <a href="#" class="section-link">Ver Todos →</a>
+  </div>
+  <div class="products-grid">
+
+    <article class="product-card">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1584735175315-9d5df23be3c4?w=600&h=500&fit=crop&q=80" alt="Air Jordan" loading="lazy">
+        <span class="product-badge">🔥 MAIS VENDIDO</span>
+        <div class="product-wishlist" onclick="toggleWishlist(this)"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+        <div class="product-quick-add" onclick="addToCart('Air Jordan 1 Mid', 1399)">+ Adicionar ao Carrinho</div>
+      </div>
+      <div class="product-info">
+        <div class="rating-row">
+          <div class="stars">
+            <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
+          </div>
+          <span class="reviews-count">(2.847)</span>
+        </div>
+        <div class="product-colors">
+          <div class="color-dot active" style="background:#c0392b"></div>
+          <div class="color-dot" style="background:#111111"></div>
+          <div class="color-dot" style="background:#1a5276"></div>
+        </div>
+        <h3 class="product-name">Air Jordan 1 Mid</h3>
+        <p class="product-category">Basquete · 3 cores</p>
+        <div class="product-price"><span class="price-current">R$1.399,00</span></div>
+      </div>
+    </article>
+
+    <article class="product-card">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1575537302964-96cd47c06b1b?w=600&h=500&fit=crop&q=80" alt="Nike Pegasus" loading="lazy">
+        <span class="product-badge sale">TOP CORRIDA</span>
+        <div class="product-wishlist" onclick="toggleWishlist(this)"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+        <div class="product-quick-add" onclick="addToCart('Nike Air Pegasus 40', 799)">+ Adicionar ao Carrinho</div>
+      </div>
+      <div class="product-info">
+        <div class="rating-row">
+          <div class="stars">
+            <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span>
+          </div>
+          <span class="reviews-count">(1.432)</span>
+        </div>
+        <div class="product-colors">
+          <div class="color-dot active" style="background:#FA5400"></div>
+          <div class="color-dot" style="background:#111111"></div>
+          <div class="color-dot" style="background:#4a90d9"></div>
+        </div>
+        <h3 class="product-name">Nike Air Pegasus 40</h3>
+        <p class="product-category">Corrida · 3 cores</p>
+        <div class="product-price">
+          <span class="price-current">R$799,00</span>
+          <span class="price-original">R$999,00</span>
+          <span class="price-discount">-20%</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="product-card">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=600&h=500&fit=crop&q=80" alt="Nike Metcon" loading="lazy">
+        <div class="product-wishlist" onclick="toggleWishlist(this)"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+        <div class="product-quick-add" onclick="addToCart('Nike Metcon 9', 699)">+ Adicionar ao Carrinho</div>
+      </div>
+      <div class="product-info">
+        <div class="rating-row">
+          <div class="stars">
+            <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
+          </div>
+          <span class="reviews-count">(987)</span>
+        </div>
+        <div class="product-colors">
+          <div class="color-dot active" style="background:#111111"></div>
+          <div class="color-dot" style="background:#2f855a"></div>
+          <div class="color-dot" style="background:#9b2335"></div>
+        </div>
+        <h3 class="product-name">Nike Metcon 9</h3>
+        <p class="product-category">Treino · 3 cores</p>
+        <div class="product-price"><span class="price-current">R$699,00</span></div>
+      </div>
+    </article>
+
+    <article class="product-card">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=600&h=500&fit=crop&q=80" alt="Nike Tiempo" loading="lazy">
+        <span class="product-badge">FUTEBOL</span>
+        <div class="product-wishlist" onclick="toggleWishlist(this)"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+        <div class="product-quick-add" onclick="addToCart('Nike Tiempo Legend 10', 849)">+ Adicionar ao Carrinho</div>
+      </div>
+      <div class="product-info">
+        <div class="rating-row">
+          <div class="stars">
+            <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span>
+          </div>
+          <span class="reviews-count">(654)</span>
+        </div>
+        <div class="product-colors">
+          <div class="color-dot active" style="background:#d4a017"></div>
+          <div class="color-dot" style="background:#111111"></div>
+          <div class="color-dot" style="background:#2c5f8a"></div>
+        </div>
+        <h3 class="product-name">Nike Tiempo Legend 10</h3>
+        <p class="product-category">Futebol · 3 cores</p>
+        <div class="product-price"><span class="price-current">R$849,00</span></div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- BENEFICIOS -->
+<section class="beneficios">
+  <div class="beneficios-inner">
+    <div class="beneficios-grid">
+      <div class="beneficio-card fade-in">
+        <div class="beneficio-icon">
+          <svg viewBox="0 0 24 24"><path d="M5 12H3l9-9 9 9h-2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V12z"/><path d="M9 21V12h6v9"/></svg>
+        </div>
+        <h3 class="beneficio-title">FRETE GRÁTIS</h3>
+        <p class="beneficio-text">Em todos os pedidos acima de R$299. Entrega expressa disponível.</p>
+      </div>
+      <div class="beneficio-card fade-in fade-in-delay-1">
+        <div class="beneficio-icon">
+          <svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.51"/></svg>
+        </div>
+        <h3 class="beneficio-title">TROCA FÁCIL</h3>
+        <p class="beneficio-text">30 dias para trocar ou devolver sem complicação. Sem burocracia.</p>
+      </div>
+      <div class="beneficio-card fade-in fade-in-delay-2">
+        <div class="beneficio-icon">
+          <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        </div>
+        <h3 class="beneficio-title">PAGAMENTO SEGURO</h3>
+        <p class="beneficio-text">Compra 100% segura com criptografia e até 12x sem juros.</p>
+      </div>
+      <div class="beneficio-card fade-in fade-in-delay-3">
+        <div class="beneficio-icon">
+          <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+        </div>
+        <h3 class="beneficio-title">APP NIKE</h3>
+        <p class="beneficio-text">Acesso exclusivo a lançamentos e ofertas no app. Baixe grátis.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NIKE MEMBER -->
+<section class="nike-member">
+  <div class="nike-member-inner">
+    <div>
+      <h2 class="member-headline fade-in">SEJA UM<br><em>MEMBRO</em><br>NIKE</h2>
+      <p class="member-sub fade-in fade-in-delay-1">Junte-se a milhões de atletas e apaixonados pelo esporte. Acesso exclusivo, recompensas e muito mais esperando por você.</p>
+      <div class="member-benefits fade-in fade-in-delay-2">
+        <div class="member-benefit">
+          <div class="member-benefit-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <span>Acesso antecipado a novos lançamentos</span>
+        </div>
+        <div class="member-benefit">
+          <div class="member-benefit-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <span>Promoções exclusivas para membros</span>
+        </div>
+        <div class="member-benefit">
+          <div class="member-benefit-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <span>Frete grátis em todos os pedidos</span>
+        </div>
+        <div class="member-benefit">
+          <div class="member-benefit-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <span>Pontos a cada compra + recompensas especiais</span>
+        </div>
+        <div class="member-benefit">
+          <div class="member-benefit-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <span>Acesso ao NRC — Nike Run Club app</span>
+        </div>
+      </div>
+      <a href="#" class="btn-black fade-in fade-in-delay-3">
+        CRIAR CONTA GRÁTIS
+        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+    <div class="member-visual fade-in fade-in-delay-2">
+      <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&h=1000&fit=crop&q=85" alt="Nike Member" loading="lazy">
+      <div class="member-visual-tag">Nike Member <span>✓ Ativo</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- GALERIA SOCIAL -->
+<section class="galeria">
+  <div class="galeria-inner">
+    <div class="galeria-header fade-in">
+      <span class="galeria-hashtag">#JUSTDOIT</span>
+      <p style="font-size:15px;color:var(--gray-600)">Compartilhe seu momento Nike e marque <strong>#JustDoIt</strong></p>
+    </div>
+    <div class="galeria-grid">
+      <div class="galeria-item fade-in">
+        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=600&fit=crop&q=80" alt="Social 1" loading="lazy">
+        <div class="galeria-overlay"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div>
+      </div>
+      <div class="galeria-item fade-in fade-in-delay-1">
+        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&h=400&fit=crop&q=80" alt="Social 2" loading="lazy">
+        <div class="galeria-overlay"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div>
+      </div>
+      <div class="galeria-item fade-in fade-in-delay-2">
+        <img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?w=400&h=400&fit=crop&q=80" alt="Social 3" loading="lazy">
+        <div class="galeria-overlay"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div>
+      </div>
+      <div class="galeria-item fade-in fade-in-delay-3">
+        <img src="https://images.unsplash.com/photo-1553778263-73a83bab9b0c?w=600&h=400&fit=crop&q=80" alt="Social 4" loading="lazy">
+        <div class="galeria-overlay"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div>
+      </div>
+      <div class="galeria-item fade-in fade-in-delay-1">
+        <img src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=400&h=400&fit=crop&q=80" alt="Social 5" loading="lazy">
+        <div class="galeria-overlay"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div>
+      </div>
+      <div class="galeria-item fade-in fade-in-delay-2">
+        <img src="https://images.unsplash.com/photo-1520975954732-35dd22299614?w=400&h=400&fit=crop&q=80" alt="Social 6" loading="lazy">
+        <div class="galeria-overlay"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter">
+  <div class="newsletter-inner fade-in">
+    <p class="newsletter-eyebrow">Exclusivo para Assinantes</p>
+    <h2 class="newsletter-title">FIQUE POR DENTRO</h2>
+    <p class="newsletter-sub">Cadastre-se e ganhe <strong>10% de desconto</strong> no seu primeiro pedido. Além de acesso antecipado a lançamentos e promoções exclusivas.</p>
+    <div class="newsletter-form">
+      <input type="email" id="newsletter-email" placeholder="Seu melhor e-mail">
+      <button onclick="subscribeNewsletter()">QUERO 10% OFF</button>
+    </div>
+    <div class="newsletter-success" id="newsletter-success">
+      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      Perfeito! Verifique seu e-mail para o código de desconto.
+    </div>
+    <p class="newsletter-terms">Ao se cadastrar você concorda com nossa Política de Privacidade. Cancele quando quiser.</p>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-main">
+    <div class="footer-brand">
+      <a href="#" class="logo-footer">
+        <svg viewBox="0 0 88 32" xmlns="http://www.w3.org/2000/svg" style="width:72px;fill:white">
+          <path d="M87.5 3.6c-.8 1-1.9 1.8-3.4 2.5C80.8 7.6 71.3 10 60 13.3 45.8 17.4 35.2 21.8 27.8 26.8c-4.8 3.2-7.5 6.3-8.1 9.3-.1.5-.1 1-.1 1.5 0 2.2.9 4.1 2.6 5.7 1 .9 2.2 1.6 3.6 2.2-3.3-.5-5.8-1.6-7.6-3.4C16.3 40 15.5 37.7 15.5 35c0-1 .1-2 .4-3.2.9-3.8 3.1-7.5 6.6-11 3.5-3.5 8.1-6.7 13.8-9.5 10.9-5.4 24.3-9.4 40.3-12C82.5-1.4 87.5 3.6 87.5 3.6z"/>
+          <path d="M0 44.8L33.1 0l8.2 0L8.2 44.8H0z"/>
+        </svg>
+      </a>
+      <p class="footer-tagline">Inspirando atletas de todo o mundo. Just Do It.</p>
+      <div class="footer-socials">
+        <a href="#" class="social-link" aria-label="Instagram">
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        </a>
+        <a href="#" class="social-link" aria-label="Twitter/X">
+          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.259 5.63L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg>
+        </a>
+        <a href="#" class="social-link" aria-label="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+        <a href="#" class="social-link" aria-label="YouTube">
+          <svg viewBox="0 0 24 24"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div>
+      <h4 class="footer-col-title">Produtos</h4>
+      <ul class="footer-links">
+        <li><a href="#">Calçados Masculinos</a></li>
+        <li><a href="#">Calçados Femininos</a></li>
+        <li><a href="#">Roupas</a></li>
+        <li><a href="#">Acessórios</a></li>
+        <li><a href="#">Equipamentos</a></li>
+        <li><a href="#">Sale</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="footer-col-title">Esportes</h4>
+      <ul class="footer-links">
+        <li><a href="#">Corrida</a></li>
+        <li><a href="#">Basquete</a></li>
+        <li><a href="#">Futebol</a></li>
+        <li><a href="#">Treino</a></li>
+        <li><a href="#">Skateboarding</a></li>
+        <li><a href="#">Yoga</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="footer-col-title">Ajuda</h4>
+      <ul class="footer-links">
+        <li><a href="#">Central de Ajuda</a></li>
+        <li><a href="#">Status do Pedido</a></li>
+        <li><a href="#">Devoluções</a></li>
+        <li><a href="#">Guia de Tamanhos</a></li>
+        <li><a href="#">Fale Conosco</a></li>
+        <li><a href="#">Lojas Físicas</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="footer-col-title">Nike</h4>
+      <ul class="footer-links">
+        <li><a href="#">Sobre Nós</a></li>
+        <li><a href="#">Notícias</a></li>
+        <li><a href="#">Carreiras</a></li>
+        <li><a href="#">Investidores</a></li>
+        <li><a href="#">Sustentabilidade</a></li>
+        <li><a href="#">Nike Member</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-country">
+      <span>🇧🇷</span>
+      <span>Brasil</span>
+    </div>
+    <div class="footer-legal">
+      <a href="#">Política de Privacidade</a>
+      <a href="#">Termos de Uso</a>
+      <a href="#">Cookies</a>
+      <a href="#">Acessibilidade</a>
+    </div>
+    <p class="footer-copyright">© 2025 Nike, Inc. Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+<!-- CART DRAWER -->
+<div class="overlay" id="cart-overlay" style="z-index:2999;"></div>
+<div class="cart-drawer" id="cart-drawer">
+  <div class="cart-header">
+    <h2 class="cart-title">SEU CARRINHO</h2>
+    <button class="cart-close" id="cart-close">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="cart-items" id="cart-items">
+    <div class="cart-empty">
+      <div class="cart-empty-icon">🛍️</div>
+      <p class="cart-empty-text">Seu carrinho está vazio</p>
+      <p class="cart-empty-sub">Adicione produtos para continuar</p>
+    </div>
+  </div>
+  <div class="cart-footer" id="cart-footer" style="display:none;">
+    <div class="cart-subtotal">
+      <span>Subtotal</span>
+      <span id="cart-total">R$0,00</span>
+    </div>
+    <button class="btn-checkout">FINALIZAR COMPRA</button>
+  </div>
+</div>
+
+<!-- BACK TO TOP -->
+<button class="back-to-top" id="back-to-top" aria-label="Voltar ao topo">
+  <svg viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+</button>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ===== STATE =====
+let cartItems = [];
+let cartOpen = false;
+
+// ===== HEADER SCROLL =====
+const header = document.getElementById('header');
+window.addEventListener('scroll', () => {
+  header.classList.toggle('scrolled', window.scrollY > 10);
+  document.getElementById('back-to-top').classList.toggle('show', window.scrollY > 400);
+});
+
+// ===== MOBILE MENU =====
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+const overlay = document.getElementById('overlay');
+const mobileClose = document.getElementById('mobile-close');
+
+function openMobileMenu() {
+  hamburger.classList.add('active');
+  mobileMenu.classList.add('open');
+  overlay.classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function closeMobileMenu() {
+  hamburger.classList.remove('active');
+  mobileMenu.classList.remove('open');
+  overlay.classList.remove('show');
+  document.body.style.overflow = '';
+}
+hamburger.addEventListener('click', openMobileMenu);
+mobileClose.addEventListener('click', closeMobileMenu);
+overlay.addEventListener('click', closeMobileMenu);
+
+// ===== CART =====
+const cartToggle = document.getElementById('cart-toggle');
+const cartDrawer = document.getElementById('cart-drawer');
+const cartCloseBtn = document.getElementById('cart-close');
+const cartOverlay = document.getElementById('cart-overlay');
+
+function openCart() {
+  cartDrawer.classList.add('open');
+  cartOverlay.classList.add('show');
+  document.body.style.overflow = 'hidden';
+  cartOpen = true;
+}
+function closeCart() {
+  cartDrawer.classList.remove('open');
+  cartOverlay.classList.remove('show');
+  document.body.style.overflow = '';
+  cartOpen = false;
+}
+cartToggle.addEventListener('click', openCart);
+cartCloseBtn.addEventListener('click', closeCart);
+cartOverlay.addEventListener('click', closeCart);
+
+function addToCart(name, price) {
+  const existing = cartItems.find(i => i.name === name);
+  if (existing) {
+    existing.qty++;
+  } else {
+    const imgs = [
+      'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=160&h=160&fit=crop',
+      'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=160&h=160&fit=crop',
+      'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=160&h=160&fit=crop',
+      'https://images.unsplash.com/photo-1584735175315-9d5df23be3c4?w=160&h=160&fit=crop',
+    ];
+    cartItems.push({ name, price, qty: 1, img: imgs[Math.floor(Math.random()*imgs.length)] });
+  }
+  renderCart();
+  showToast(`✓  ${name} adicionado ao carrinho`);
+  setTimeout(openCart, 400);
+}
+
+function removeFromCart(name) {
+  cartItems = cartItems.filter(i => i.name !== name);
+  renderCart();
+}
+
+function renderCart() {
+  const container = document.getElementById('cart-items');
+  const footer = document.getElementById('cart-footer');
+  const countEl = document.getElementById('cart-count');
+  const totalEl = document.getElementById('cart-total');
+  const total = cartItems.reduce((s, i) => s + i.price * i.qty, 0);
+  const count = cartItems.reduce((s, i) => s + i.qty, 0);
+  countEl.textContent = count;
+  totalEl.textContent = 'R$' + total.toLocaleString('pt-BR', {minimumFractionDigits: 2});
+  if (cartItems.length === 0) {
+    container.innerHTML = `<div class="cart-empty"><div class="cart-empty-icon">🛍️</div><p class="cart-empty-text">Seu carrinho está vazio</p><p class="cart-empty-sub">Adicione produtos para continuar</p></div>`;
+    footer.style.display = 'none';
+  } else {
+    container.innerHTML = cartItems.map(item => `
+      <div class="cart-item">
+        <div class="cart-item-img"><img src="${item.img}" alt="${item.name}" loading="lazy"></div>
+        <div class="cart-item-info">
+          <p class="cart-item-name">${item.name}</p>
+          <p class="cart-item-size">Tam: 42 · Qtd: ${item.qty}</p>
+          <p class="cart-item-price">R$${(item.price * item.qty).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</p>
+          <span class="cart-item-remove" onclick="removeFromCart('${item.name}')">Remover</span>
+        </div>
+      </div>
+    `).join('');
+    footer.style.display = 'block';
+  }
+}
+
+// ===== WISHLIST =====
+function toggleWishlist(btn) {
+  btn.classList.toggle('liked');
+  showToast(btn.classList.contains('liked') ? '❤️ Adicionado aos favoritos' : '🤍 Removido dos favoritos');
+}
+
+// ===== COLOR SELECTOR =====
+function changeColor(dot, color, filter) {
+  const dots = dot.closest('.product-colors').querySelectorAll('.color-dot');
+  dots.forEach(d => d.classList.remove('active'));
+  dot.classList.add('active');
+  const imgWrap = dot.closest('.product-info').previousElementSibling;
+  const img = imgWrap.querySelector('img');
+  if (img) {
+    imgWrap.style.backgroundColor = color;
+    if (filter) img.style.filter = filter;
+    else img.style.filter = '';
+  }
+}
+
+// ===== CAROUSEL =====
+const carousel = document.getElementById('carousel');
+document.getElementById('prev').addEventListener('click', () => {
+  carousel.scrollBy({ left: -300, behavior: 'smooth' });
+});
+document.getElementById('next').addEventListener('click', () => {
+  carousel.scrollBy({ left: 300, behavior: 'smooth' });
+});
+
+// ===== BACK TO TOP =====
+document.getElementById('back-to-top').addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// ===== COUNTDOWN TIMER =====
+function updateTimer() {
+  const now = new Date();
+  const end = new Date(now);
+  end.setHours(23, 59, 59, 0);
+  const diff = end - now;
+  const h = Math.floor(diff / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  const s = Math.floor((diff % 60000) / 1000);
+  document.getElementById('hours').textContent = String(h).padStart(2, '0');
+  document.getElementById('minutes').textContent = String(m).padStart(2, '0');
+  document.getElementById('seconds').textContent = String(s).padStart(2, '0');
+}
+updateTimer();
+setInterval(updateTimer, 1000);
+
+// ===== INTERSECTION OBSERVER =====
+const fadeEls = document.querySelectorAll('.fade-in');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+fadeEls.forEach(el => observer.observe(el));
+
+// ===== NEWSLETTER =====
+function subscribeNewsletter() {
+  const email = document.getElementById('newsletter-email').value;
+  if (!email || !email.includes('@')) {
+    showToast('⚠️ Por favor, insira um e-mail válido.');
+    return;
+  }
+  document.querySelector('.newsletter-form').style.display = 'none';
+  document.getElementById('newsletter-success').style.display = 'flex';
+  showToast('🎉 Parabéns! Você ganhou 10% de desconto!');
+}
+
+// ===== TOAST =====
+let toastTimeout;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimeout);
+  toastTimeout = setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ===== LAZY LOAD IMAGES =====
+const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+const imageObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const img = entry.target;
+      if (img.dataset.src) { img.src = img.dataset.src; }
+      imageObserver.unobserve(img);
+    }
+  });
+}, { rootMargin: '200px' });
+lazyImages.forEach(img => imageObserver.observe(img));
+</script>
+
+</body>
+</html>
